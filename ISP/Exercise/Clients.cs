@@ -2,52 +2,43 @@ namespace ISP.Exercise;
 
 public class CourseAnnouncements : ICourseAnnouncements
 {
-    public void SendToStudent(IStudent student, string courseCode, string subject, string body)
+    public void SendTo(ICourseAttender attender, string courseCode, string subject, string body)
     {
-        Console.WriteLine($"To: {student.FullName} <{student.Email}> | {courseCode}: {subject} | {body}");
-    }
-
-    public void SendToTeacher(ITeacher teacher, string courseCode, string subject, string body)
-    {
-        Console.WriteLine($"To: {teacher.FullName} <{teacher.Email}> | {courseCode}: {subject} | {body}");
+        Console.WriteLine($"To: {attender.FullName} <{attender.Email}> | {courseCode}: {subject} | {body}");
     }
 }
 
 public class AttendanceTracker : IAttendanceTracker
 {
-    public void MarkPresent(IStudent student, string courseCode, DateOnly date)
+    public void MarkPresent(ICourseAttender attender, string courseCode, DateOnly date)
     {
-        Console.WriteLine($"{date:yyyy-MM-dd} | {courseCode} | {student.Id} {student.FullName}: present");
-    }
-
-    public void MarkPresentTeacher(ITeacher teacher, string courseCode, DateOnly date)
-    {
-        Console.WriteLine($"{date:yyyy-MM-dd} | {courseCode} | {teacher.Id} {teacher.FullName}: present");
+        Console.WriteLine($"{date:yyyy-MM-dd} | {courseCode} | {attender.Id} {attender.FullName}: present");
     }
 }
 
 public class Gradebook : IGradebook
 {
-    public void RecordGrade(IStudent student, string courseCode, decimal points)
+    public void RecordGrade(ICourseLearner learner, string courseCode, decimal points)
     {
-        student.RecordGrade(courseCode, points);
+        learner.RecordGrade(courseCode, points);
     }
 
-    public decimal? GetFinal(IStudent student, string courseCode)
+    public decimal? GetFinal(ICourseLearner learner, string courseCode)
     {
-        return student.GetFinalGrade(courseCode);
+        return learner.GetFinalGrade(courseCode);
     }
 }
 
 public class ContractsBilling : IContractsBilling
 {
-    public void AddCharge(IStudent student, decimal amount, string reason)
+    // Або залишити студента напряму, якщо на 100% впевнені
+    public void AddCharge(ICourseContractPayer payer, decimal amount, string reason)
     {
-        student.AddCharge(amount, reason);
+        payer.AddCharge(amount, reason);
     }
 
-    public decimal GetBalance(IStudent student)
+    public decimal GetBalance(ICourseContractPayer payer)
     {
-        return student.OutstandingBalance;
+        return payer.OutstandingBalance;
     }
 }
