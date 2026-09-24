@@ -17,7 +17,7 @@ public class SalesReportGenerator
         this.salesReporter = salesReporter;
         this.salesReportWriter = salesReportWriter;
     }
-    public void Generate(string inputPath, string outputPath)
+    public void Generate()
     {
         var lines = salesDataReader.Read();
 
