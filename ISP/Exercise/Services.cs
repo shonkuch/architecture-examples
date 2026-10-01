@@ -7,24 +7,23 @@ namespace ISP.Exercise;
 
 public interface ICourseAnnouncements
 {
-    void SendToStudent(IStudent student, string courseCode, string subject, string body);
-    void SendToTeacher(ITeacher teacher, string courseCode, string subject, string body);
+    void SendTo(ICourseAttender attender, string courseCode, string subject, string body);
 }
 
 public interface IAttendanceTracker
 {
-    void MarkPresent(IStudent student, string courseCode, DateOnly date);
-    void MarkPresentTeacher(ITeacher teacher, string courseCode, DateOnly date);
+    void MarkPresent(ICourseAttender attender, string courseCode, DateOnly date);
 }
 
 public interface IGradebook
 {
-    void RecordGrade(IStudent student, string courseCode, decimal points);
-    decimal? GetFinal(IStudent student, string courseCode);
+    void RecordGrade(ICourseLearner learner, string courseCode, decimal points);
+    decimal? GetFinal(ICourseLearner learner, string courseCode);
 }
 
 public interface IContractsBilling
 {
-    void AddCharge(IStudent student, decimal amount, string reason);
-    decimal GetBalance(IStudent student);
+    // Або залишити студента напряму, якщо на 100% впевнені
+    void AddCharge(ICourseContractPayer payer, decimal amount, string reason);
+    decimal GetBalance(ICourseContractPayer payer);
 }
