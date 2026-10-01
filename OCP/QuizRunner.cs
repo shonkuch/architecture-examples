@@ -13,10 +13,10 @@ public class QuizRunner
             Console.WriteLine(question.Prompt);
 
             question.Print();
-
+            
             string answer = (Console.ReadLine() ?? "").Trim();
             bool correct = question.IsCorrect(answer);
-
+            
             if (correct)
             {
                 score++;
